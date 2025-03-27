@@ -1,7 +1,6 @@
-const URL = "./my_model/"; // Caminho do modelo treinado
+const URL = "./my_model/";
 let model, webcam, labelContainer, maxPredictions;
 
-// Carregar o modelo
 async function loadModel() {
     const modelURL = URL + "model.json";
     const metadataURL = URL + "metadata.json";
@@ -10,16 +9,15 @@ async function loadModel() {
     maxPredictions = model.getTotalClasses();
 
     labelContainer = document.getElementById("label-container");
-    labelContainer.innerHTML = ""; // Limpar resultados anteriores
-    for (let i = 0; i < 3; i++) { // Limitar a exibição para 3 rótulos
+    labelContainer.innerHTML = "";
+    for (let i = 0; i < 3; i++) {
         labelContainer.appendChild(document.createElement("div"));
     }
 }
 
-// Iniciar a webcam
 async function initWebcam() {
     await loadModel();
-    document.getElementById("image-preview").innerHTML = ""; // Limpar imagem carregada
+    document.getElementById("image-preview").innerHTML = "";
 
     const flip = true;
     webcam = new tmImage.Webcam(300, 300, flip);
@@ -37,16 +35,14 @@ async function loop() {
     window.requestAnimationFrame(loop);
 }
 
-// Predição com a webcam
 async function predictWebcam() {
     const prediction = await model.predict(webcam.canvas);
     updateLabels(prediction);
 }
 
-// Predição com upload de imagem
 async function predictImage(event) {
     await loadModel();
-    document.getElementById("webcam-container").innerHTML = ""; // Desativar webcam se ativada
+    document.getElementById("webcam-container").innerHTML = "";
 
     const file = event.target.files[0];
     if (file) {
@@ -63,19 +59,16 @@ async function predictImage(event) {
                 };
             };
             const previewContainer = document.getElementById("image-preview");
-            previewContainer.innerHTML = ""; // Limpar imagem anterior
+            previewContainer.innerHTML = "";
             previewContainer.appendChild(imgElement);
         };
         reader.readAsDataURL(file);
     }
 }
 
-// Atualizar rótulos de predição para exibir apenas as 3 melhores previsões
 function updateLabels(prediction) {
-    // Ordenar as previsões pela probabilidade (decrescente)
     const sortedPrediction = prediction.sort((a, b) => b.probability - a.probability);
 
-    // Exibir apenas as 3 melhores previsões
     for (let i = 0; i < 3; i++) {
         const classPrediction = sortedPrediction[i].className + ": " + (sortedPrediction[i].probability * 100).toFixed(2) + "%";
         labelContainer.childNodes[i].innerHTML = classPrediction;
