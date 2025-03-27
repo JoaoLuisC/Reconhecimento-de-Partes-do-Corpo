@@ -1,0 +1,55 @@
+body {
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(to bottom right, rgba(173, 216, 230, 0.8), rgba(255, 255, 255, 0.8)); /* Gradiente no fundo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+
+/* Estiliza a imagem de fundo centralizada atrás do conteúdo */
+.background-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Mantém a imagem centralizada */
+    width: 100%;  /* Ajuste conforme necessário */
+    height: 100%; /* Ajuste conforme necessário */
+    background: url('/Homem_Vitruviano.png') no-repeat center center;
+    background-size: contain; /* Mantém a proporção da imagem */
+    opacity: 0.4; /* Torna a imagem levemente transparente */
+    z-index: -1; /* JOGA A IMAGEM PARA TRÁS DA DIV PRINCIPAL */
+}
+
+/* Garante que a div principal fique sobre a imagem */
+.container {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.61);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1; /* Mantém o conteúdo acima da imagem de fundo */
+}
+
+h1 {
+    color: #343a40;
+}
+
+#webcam-container, #image-preview {
+    margin-top: 20px;
+}
+
+#label-container div {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
