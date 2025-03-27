@@ -30,7 +30,7 @@ async function initWebcam() {
     document.getElementById("webcam-container").appendChild(webcam.canvas);
 
     // Atualizar predição a cada 5 segundos
-    setInterval(predictWebcam, 5000);
+    setInterval(predictWebcam, 1000);
 }
 
 async function loop() {
